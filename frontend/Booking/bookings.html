@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+   
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>استكشاف الحجوزات - مُعافى</title>
+     <link rel="manifest" href="manifest.json">
+
+    <link rel="stylesheet" href="bookings.css">
+
+         <link rel="stylesheet" href="../Sidebar/sidebar-mobile.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+
+    
+
+    <main class="main-content">
+        <header class="search-header">
+
+            <button class="mobile-menu-btn" id="menuToggle">
+    <i class="fas fa-bars"></i>
+</button>
+
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="ابحث عن مكان، ملعب، أو خدمة...">
+            </div>
+            <div class="filter-group">
+                <div class="filter-item">
+                    <i class="fas fa-calendar-day"></i>
+                    <span>التاريخ</span>
+                </div>
+                <div class="filter-item">
+                    <i class="fas fa-users"></i>
+                    <span>الأشخاص</span>
+                </div>
+                <button class="btn-search">بحث</button>
+            </div>
+        </header>
+
+        <h2 class="page-title">العروض المتاحة لك</h2>
+
+        <section class="bookings-grid">
+            
+           
+
+
+            <div class="bookings-container">
+    </div>
+
+           
+
+        </section>
+    </main>
+
+<div id="bookingModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <img src="../logo.jpg" id="modalImage" class="modal-banner">
+        
+        <div class="modal-body">
+            <h2 id="modalTitle">اسم المكان</h2> 
+            
+            <p id="modalDescription" class="venue-desc">هنا سيظهر الوصف بالتفصيل...</p>
+            
+            <div class="venue-info-grid">
+                <span><i class="fas fa-tag"></i> السعر: <b id="unitPrice">0</b> ل.س</span>
+                <span><i class="fas fa-clock"></i> مدة الجلسة: <b id="modalDuration">0</b> دقيقة</span>
+            </div>
+
+            <hr>
+
+            <form id="confirmBookingForm">
+                <div class="input-group">
+                    <label>البريد الإلكتروني</label>
+                    <input type="email" id="customer_email" required class="modal-input">
+                </div>
+                <div class="input-group">
+                    <label>رقم الهاتف</label>
+                    <input type="tel" id="customer_phone" required class="modal-input">
+                </div>
+
+                <div class="input-group">
+                    <label>اختر اليوم المتاح:</label>
+                    <div id="weeklyCalendar" class="weekly-grid"></div> 
+                    <input type="hidden" id="selectedBookingDate">
+                </div>
+
+                <div class="input-group">
+                    <label>اختر الوقت</label>
+                    <select id="selected_time" required class="modal-input">
+                        <option value="">اختر الوقت المناسب</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-confirm">تأكيد الحجز</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+
+
+<script src="../Sidebar/sidebar.js"></script>
+ <script src="bookings.js"></script>
+<script src="../pwa-handler/pwa-handler.js"></script>
+        <script src="../Sidebar/sidebar-mobile.js"></script>
+
+       
+
+
+
+</body>
+</html>

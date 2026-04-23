@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>مُعافى - لوحة التحكم</title>
+        <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="Sidebar/sidebar-mobile.css">
+  
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* التأكد من أن القائمة قابلة للضغط وتظهر عليها علامة اليد */
+        .sidebar nav ul li {
+            cursor: pointer !important;
+        }
+    </style>
+
+<button id="menuToggle" class="mobile-menu-btn">
+    <i class="fas fa-bars"></i>
+</button>
+
+
+</head>
+<body>
+
+    <main class="main-content">
+        <header>
+
+
+
+            <div class="header-left">
+                <h1 data-en="Welcome, Admin" data-ar="مرحباً، أيها المدير">مرحباً، أيها المدير</h1>
+            </div>
+            
+            <div class="header-tools">
+                <div class="lang-wrapper">
+                    <i class="fas fa-globe"></i>
+                    <select id="langToggle">
+                        <option value="ar">العربية</option>
+                        <option value="en">English</option>
+                    </select>
+                </div>
+                
+                <a href="Auth/auth.html" class="profile-link">
+                    <div class="profile-group">
+                        <div class="profile-info">
+                            <span class="profile-name">Admin Luna</span>
+                            <span class="profile-role" data-en="Super Admin" data-ar="مدير عام">مدير عام</span>
+                        </div>
+                        <div class="profile-circle">A</div>
+                    </div>
+                </a>
+            </div>
+        </header>
+
+        <section class="stats-grid">
+            <div class="stat-card">
+                <p data-en="Number of service providers" data-ar="عدد مزودي الخدمة">عدد مزودي الخدمة</p>
+                <h3>124</h3>
+                <div class="trend up">+12%</div>
+            </div>
+            <div class="stat-card">
+                <p data-en="Number of associations" data-ar="عدد الجمعيات">عدد الجمعيات</p>
+                <h3>850</h3>
+                <div class="trend up">+5%</div>
+            </div>
+            <div class="stat-card">
+                <p data-en="Number of patients benefiting" data-ar="عدد المرضى المستفيدين">عدد المرضى المستفيدين</p>
+                <h3>42</h3>
+                <div class="trend">Stable</div>
+            </div>
+        </section>
+
+        <section class="action-area">
+            <div class="card booking-card">
+                <h3 data-en="Quick Registration" data-ar="تسجيل سريع">تسجيل سريع</h3>
+                <form id="regForm">
+                    <div class="form-group">
+                        <input type="text" placeholder="الاسم الكامل">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="التخصص">
+                    </div>
+                    <button type="submit" class="btn-submit" data-ar="إرسال البيانات">إرسال البيانات</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h3 data-en="Recent Activities" data-ar="أحدث النشاطات">أحدث النشاطات</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th data-en="User" data-ar="المستخدم">المستخدم</th>
+                            <th data-en="Activity" data-ar="النشاط">النشاط</th>
+                            <th data-en="Status" data-ar="الحالة">الحالة</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Samer A.</td>
+                            <td>Neural Network Workshop</td>
+                            <td><span class="badge">Completed</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+    <script src="Sidebar/sidebar.js"></script>
+    <script src="pwa-handler/pwa-handler.js"></script>
+    <script src="Sidebar/sidebar-mobile.js"></script>
+</body>
+</html>

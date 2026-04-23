@@ -1,0 +1,155 @@
+:root {
+    --logo-main: #5A9789; 
+    --logo-text: #575756;
+    --bg-gradient: linear-gradient(135deg, #ffffff 0%, #eef5f3 100%);
+    --white: #ffffff;
+    --card-shadow: 0 10px 30px rgba(90, 151, 137, 0.08);
+    --border-soft: rgba(90, 151, 137, 0.15);
+    --transition: all 0.3s ease;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: var(--bg-gradient);
+    color: var(--logo-text);
+    min-height: 100vh;
+    display: flex;
+}
+
+
+
+body[dir="rtl"] .sidebar { border-right: none; border-left: 1px solid var(--border-soft); }
+
+.logo-container { text-align: center; margin-bottom: 3rem; }
+.logo-image { width: 110px; height: auto; margin-bottom: 1rem; }
+.logo-container h2 { font-size: 0.9rem; color: var(--logo-main); }
+
+nav ul li {
+    padding: 14px 18px; margin-bottom: 10px; border-radius: 12px;
+    cursor: pointer; display: flex; align-items: center; color: #888;
+}
+
+nav ul li i { margin-right: 15px; font-size: 1.1rem; }
+body[dir="rtl"] nav ul li i { margin-right: 0; margin-left: 15px; }
+
+nav ul li.active, nav ul li:hover { background: rgba(90, 151, 137, 0.08); color: var(--logo-main); }
+
+/* Main Content & Header */
+.main-content { flex: 1; padding: 2.5rem; }
+
+header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; }
+
+.header-tools { display: flex; align-items: center; gap: 20px; }
+
+/* Language & Profile Tools */
+.lang-wrapper {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--white); padding: 6px 12px;
+    border-radius: 20px; border: 1px solid var(--border-soft);
+}
+
+#langToggle { border: none; background: transparent; color: var(--logo-text); font-weight: 600; cursor: pointer; }
+
+.profile-link { text-decoration: none; color: inherit; }
+
+.profile-group { 
+    display: flex; align-items: center; gap: 12px; 
+    cursor: pointer; transition: var(--transition);
+}
+
+.profile-group:hover { transform: translateY(-2px); }
+
+.profile-info { text-align: right; display: flex; flex-direction: column; }
+body[dir="rtl"] .profile-info { text-align: left; }
+
+.profile-name { font-size: 0.9rem; font-weight: bold; }
+.profile-role { font-size: 0.75rem; color: var(--logo-main); }
+
+.profile-circle {
+    width: 42px; height: 42px; background: var(--logo-main);
+    color: white; border-radius: 50%; display: flex;
+    align-items: center; justify-content: center; font-weight: bold;
+}
+
+/* Stats Cards */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem; }
+.stat-card { background: var(--white); padding: 1.5rem; border-radius: 20px; box-shadow: var(--card-shadow); border-top: 4px solid var(--logo-main); }
+.stat-card h3 { font-size: 2rem; color: var(--logo-main); margin-top: 10px; }
+
+/* Forms & Tables */
+.action-area { display: grid; grid-template-columns: 1fr 1.6fr; gap: 20px; }
+.card { background: var(--white); padding: 2rem; border-radius: 24px; box-shadow: var(--card-shadow); }
+
+input { width: 100%; padding: 14px; margin-bottom: 15px; border: 1px solid #eee; border-radius: 12px; outline: none; }
+input:focus { border-color: var(--logo-main); }
+
+.btn-submit { width: 100%; padding: 15px; background: var(--logo-main); color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; }
+
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+th { text-align: left; padding: 12px; color: var(--logo-main); border-bottom: 2px solid #f5f5f5; }
+body[dir="rtl"] th { text-align: right; }
+td { padding: 12px; border-bottom: 1px solid #f9f9f9; font-size: 0.9rem; }
+.badge { background: #eef7f5; color: var(--logo-main); padding: 4px 8px; border-radius: 6px; font-size: 0.8rem; }
+/* تأثير البطاقات العلوية (الإحصائيات) */
+.stat-card {
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* حركة مرنة (Bounce) */
+}
+
+.stat-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-top: 4px solid var(--primary); /* إضافة خط علوي بلون اللوجو عند التفاعل */
+}
+
+/* تأثير صفوف الجدول */
+table tbody tr {
+    transition: background 0.2s ease;
+}
+
+table tbody tr:hover {
+    background-color: rgba(90, 151, 137, 0.05); /* تظليل الصف عند تمرير الماوس */
+    cursor: pointer;
+}
+
+
+@media (max-width: 768px) {
+    body {
+        flex-direction: column; /* تحويل الترتيب من أفقي لرأسي */
+    }
+
+    /* إخفاء السايدبار الثابت وتحويله لقائمة علوية أو مخفية */
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-left: none;
+        border-bottom: 1px solid var(--border-soft);
+        padding: 15px;
+    }
+
+    .logo-container { margin-bottom: 1rem; }
+    .logo-image { width: 60px; }
+
+    .main-content {
+        padding: 15px;
+    }
+
+    /* تحويل الشبكات (Cards) لعمود واحد */
+    .action-area, .stats-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px;
+    }
+
+    /* ضبط الهيدر */
+    header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+}
+
+
+
+
+

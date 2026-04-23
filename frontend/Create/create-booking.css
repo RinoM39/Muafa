@@ -1,0 +1,169 @@
+:root {
+    --primary: #5A9789;
+    --text: #575756;
+    --bg: #f8faf9;
+    --border: #edf2f0;
+}
+
+body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    direction: rtl;
+}
+
+.main-content { padding: 30px; transition: 0.4s ease-in-out; }
+
+.booking-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+.title-wrap h1 { margin: 0; font-size: 1.8rem; color: var(--primary); }
+.title-wrap p { margin: 5px 0 0; color: #888; font-size: 0.9rem; }
+
+.main-grid { display: grid; grid-template-columns: 1fr 350px; gap: 25px; }
+.form-card { 
+    background: white; padding: 30px; border-radius: 24px; 
+    border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.02); 
+}
+
+.input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+.form-group { margin-bottom: 5px; }
+.form-group label { display: block; margin-bottom: 10px; font-weight: 700; font-size: 0.9rem; color: #444; }
+
+.modern-input-wrapper { position: relative; display: flex; align-items: center; }
+.modern-input-wrapper i { position: absolute; right: 15px; color: var(--primary); font-size: 1.1rem; }
+
+.modern-input {
+    width: 100%; 
+    padding: 15px 45px 15px 15px; 
+    border: 2px solid #f1f5f4;
+    border-radius: 16px; 
+    background: #fdfdfd; 
+    outline: none; transition: 0.3s; box-sizing: border-box;
+    font-family: inherit; font-size: 0.95rem;
+}
+
+.modern-input:focus { border-color: var(--primary); background: white; box-shadow: 0 0 0 4px rgba(90, 151, 137, 0.1); }
+
+/* تعديل الوصف ليكون حجمه ثابتاً ولا يمكن للمستخدم تمطيطه */
+.fixed-textarea {
+    resize: none; /* يمنع تغيير الحجم يدوياً */
+    padding: 15px; /* لأنه لا يحتوي على أيقونة يمنى */
+}
+
+.btn-save {
+    width: 100%; padding: 16px; background: var(--primary); color: white;
+    border: none; border-radius: 14px; font-weight: bold; cursor: pointer; transition: 0.3s;
+    margin-top: 20px; font-size: 1rem;
+}
+.btn-save:hover { background: #4a7e72; transform: translateY(-2px); }
+
+@media (max-width: 900px) { 
+    .main-grid { grid-template-columns: 1fr; } 
+    .input-grid { grid-template-columns: 1fr; }
+}
+
+.lang-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--white);
+    padding: 8px 15px;
+    border-radius: 12px;
+    border: 1px solid var(--border-soft);
+    transition: var(--transition);
+}
+
+.lang-wrapper i {
+    color: var(--logo-main);
+}
+
+.lang-wrapper select {
+    border: none;
+    background: transparent;
+    font-size: 0.9rem;
+    color: var(--logo-text);
+    cursor: pointer;
+    outline: none;
+}
+
+:root {
+    --logo-main: #494949; 
+    --logo-text: #575756;
+    --white: #ffffff;
+    --border-soft: rgba(90, 151, 137, 0.15);
+    --transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    /* تحويل الشبكة من عمودين إلى عمود واحد */
+    .main-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px;
+    }
+
+    /* إلغاء الهوامش الكبيرة في الموبايل */
+    .main-content {
+        padding: 15px;
+    }
+
+    /* جعل حقول الإدخال تأخذ كامل العرض */
+    .input-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* تصغير الهيدر ليناسب الشاشة الضيقة */
+    .booking-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .language-selector {
+        align-self: flex-end; /* وضع زر اللغة على اليمين */
+    }
+}
+
+
+/* تنسيق اختيار الأيام (Day Chips) */
+.days-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.day-chip {
+    cursor: pointer;
+}
+
+.day-chip input {
+    display: none; /* إخفاء المربع التقليدي */
+}
+
+.day-chip span {
+    display: inline-block;
+    padding: 8px 18px;
+    border: 2px solid #f1f5f4;
+    border-radius: 50px;
+    background: #fdfdfd;
+    font-size: 0.9rem;
+    transition: 0.3s;
+    color: var(--text);
+}
+
+/* حالة الاختيار */
+.day-chip input:checked + span {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    box-shadow: 0 4px 10px rgba(90, 151, 137, 0.3);
+}
+
+.day-chip:hover span {
+    border-color: var(--primary);
+}
+
+@media (max-width: 600px) {
+    .days-selector { justify-content: space-between; }
+    .day-chip span { padding: 6px 12px; font-size: 0.8rem; }
+}
+
+

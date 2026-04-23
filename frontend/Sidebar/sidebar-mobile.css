@@ -1,0 +1,50 @@
+/* تنسيقات الموبايل فقط */
+@media (max-width: 768px) {
+    /* إخفاء أي نسخة قديمة للسايدبار */
+    .sidebar-hover { display: none !important; }
+
+    /* تنسيق السايدبار المعتمد في sidebar.js */
+    .sidebar {
+        position: fixed !important;
+        right: -300px !important; /* مخفي تماماً يميناً */
+        top: 0 !important;
+        width: 260px !important;
+        height: 100vh !important;
+        background-color: #5A9789 !important; /* اللون الأخضر المميز */
+        z-index: 9999 !important;
+        transition: 0.4s ease-in-out !important;
+        display: block !important;
+        box-shadow: none !important;
+    }
+
+    /* الكلاس الذي يضيفه الجافاسكريبت عند النقر */
+    .sidebar.active {
+        right: 0 !important;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.2) !important;
+    }
+
+    /* زر القائمة (3 خطوط) */
+    #menuToggle {
+        display: block !important;
+        position: fixed !important;
+        top: 15px !important;
+        right: 15px !important;
+        z-index: 10000 !important;
+        background: #5A9789 !important;
+        color: white !important;
+        border: none !important;
+        padding: 10px 15px !important;
+        border-radius: 8px !important;
+        cursor: pointer !important;
+    }
+
+    /* تعديل ألوان النصوص داخل السايدبار لتصبح بيضاء */
+    .sidebar * {
+        color: white !important;
+    }
+}
+
+/* إخفاء زر الموبايل في شاشة الكمبيوتر */
+@media (min-width: 769px) {
+    #menuToggle { display: none !important; }
+}

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">  
+    <title>إنشاء حجز - مُعافى</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="create-booking.css">
+    <link rel="stylesheet" href="../Sidebar/sidebar-mobile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <button class="mobile-menu-btn" id="menuToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+</head>
+<body>
+
+    <main class="main-content">
+        <form id="createBookingForm">
+            <header class="booking-header">
+                <div class="title-wrap">
+                    <h1 data-en="New Booking" data-ar="حجز جديد">حجز جديد</h1>
+                    <p data-en="Fill booking details" data-ar="يرجى إدخال تفاصيل الحجز المطلوبة">يرجى إدخال تفاصيل الحجز المطلوبة</p>
+                </div>
+                
+                <div class="lang-wrapper">
+                    <i class="fas fa-globe"></i>
+                    <select id="langToggle">
+                        <option value="ar">العربية</option>
+                        <option value="en">English</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="main-grid">
+                <div class="left-column">
+                    <section class="form-card">
+
+
+<div class="form-group full-width" style="margin-top: 20px;">
+    <label data-en="Working Days" data-ar="أيام عمل الحجز (الأيام المتاحة)">أيام عمل الحجز (الأيام المتاحة)</label>
+    <div class="days-selector">
+        <label class="day-chip"><input type="checkbox" name="days" value="Saturday"> <span>السبت</span></label>
+        <label class="day-chip"><input type="checkbox" name="days" value="Sunday"> <span>الأحد</span></label>
+        <label class="day-chip"><input type="checkbox" name="days" value="Monday"> <span>الاثنين</span></label>
+        <label class="day-chip"><input type="checkbox" name="days" value="Tuesday"> <span>الثلاثاء</span></label>
+        <label class="day-chip"><input type="checkbox" name="days" value="Wednesday"> <span>الأربعاء</span></label>
+        <label class="day-chip"><input type="checkbox" name="days" value="Thursday"> <span>الخميس</span></label>
+        <label class="day-chip"><input type="checkbox" name="days" value="Friday"> <span>الجمعة</span></label>
+    </div>
+</div>
+
+
+
+
+                        <div class="input-grid">
+                            <div class="form-group">
+                                <label data-en="Booking Type" data-ar="نوع الحجز">نوع الحجز</label>
+                                <div class="modern-input-wrapper">
+                                    <i class="fas fa-layer-group"></i>
+                                    <input type="text" id="customer_name" class="modern-input" placeholder="مثال: قاعة، ملعب...">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label data-en="Venue" data-ar="المكان">المكان</label>
+                                <div class="modern-input-wrapper">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <input type="text" id="venue_name" class="modern-input">
+                                </div>
+                            </div>
+
+                           <div class="form-group">
+    <label data-en="Price" data-ar="السعر">السعر</label>
+    <div class="modern-input-wrapper">
+        <i class="fas fa-tag"></i>
+        <input type="number" id="price" step="0.01" class="modern-input decimal-only" placeholder="0.00">
+    </div>
+</div>
+
+                            <div class="form-group">
+                                <label data-en="People Count" data-ar="عدد الأشخاص">عدد الأشخاص</label>
+                                <div class="modern-input-wrapper">
+                                    <i class="fas fa-users"></i>
+                                    <input type="number" id="people_count" class="modern-input int-only" value="1">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label data-en="Phone" data-ar="رقم الهاتف">رقم الهاتف</label>
+                                <div class="modern-input-wrapper">
+                                    <i class="fas fa-phone"></i>
+                                    <input type="number" id="phone" class="modern-input" placeholder="09xxxxxxxx">
+                                </div>
+                            </div>
+
+                           <div class="form-group">
+    <label>مدة الحجز (بساعات)</label>
+    <div class="modern-input-wrapper">
+        <i class="fas fa-clock"></i>
+        <input type="number" id="duration_minutes" class="modern-input" placeholder="1 ساعة" min="1">
+    </div>
+</div>
+
+                        <div class="form-group full-width" style="margin-top: 15px;">
+                            <label data-en="Description" data-ar="الوصف">الوصف</label>
+                            <textarea class="modern-input fixed-textarea" id="description" rows="4" placeholder="اكتب تفاصيل إضافية..."></textarea>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="right-column">
+                    <section class="form-card summary-box">
+                        <h3 data-en="Summary" data-ar="ملخص الحجز">ملخص الحجز</h3>
+                        
+                        <div class="price-display" style="margin-bottom: 20px; font-size: 1.2rem;">
+                            <span data-en="Total:" data-ar="الإجمالي:">الإجمالي:</span>
+                        </div>
+
+                        <button type="submit" class="btn-save" data-en="Confirm" data-ar="إتمام إنشاء الحجز">إتمام إنشاء الحجز</button>
+                    </section>
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <script src="../Sidebar/sidebar.js"></script>
+    <script src="create-booking.js"></script>
+    <script src="../pwa-handler/pwa-handler.js"></script>
+    <script src="../Sidebar/sidebar-mobile.js"></script>
+
+</body>
+</html>
