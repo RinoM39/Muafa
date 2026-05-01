@@ -25,10 +25,32 @@ protected $casts = [
     'working_days' => 'array',
      ];
 
+      protected $appends = ['average_rating', 'ratings_count'];
     // علاقة بين الحجز والأماكن المحجوزة
     public function reservedSlots()
     {
         return $this->hasMany(ReservedSlot::class);
     }
 
+    // علاقة الحجز مع التقييمات
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
+
+    // حساب متوسط التقييمات وإرجاعه كرقم عشري
+    public function getAverageRatingAttribute()
+    {
+        $avg = $this->ratings()->avg('rating');
+        return $avg ? round($avg, 1) : 0.0;
+    }
+
+    // عدد الأشخاص الذين قاموا بالتقييم
+    public function getRatingsCountAttribute()
+    {
+        return $this->ratings()->count();
+    }
+
+
+    
 }

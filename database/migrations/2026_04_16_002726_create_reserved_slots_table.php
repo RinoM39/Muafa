@@ -17,7 +17,7 @@ return new class extends Migration
         $table->date('date'); // اليوم
         $table->string('time'); // الوقت (مثلاً 08:00)
         $table->string('customer_email'); // إيميل الشخص الذي حجز الموعد
-        $table->integer('customer_phone')->nullable(); // رقم هاتف الشخص الذي حجز الموعد
+        $table->integer('customer_phone'); // رقم هاتف الشخص الذي حجز الموعد
         $table->timestamps();
     });
     }

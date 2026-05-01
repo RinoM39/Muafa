@@ -9,6 +9,10 @@ class BookingController extends Controller {
     // لجلب الحجوزات وعرضها بالكروت
     public function index() {
         return response()->json(Booking::latest()->get());
+
+        $bookings = Booking::with('ratings')->latest()->get();
+
+        return response()->json($bookings);
     }
 
     // لحفظ حجز جديد
@@ -50,7 +54,8 @@ class BookingController extends Controller {
             'booking_id'     => $request->booking_id,
             'date'           => $request->date,
             'time'           => $request->time,
-            'customer_email' => $request->customer_email
+            'customer_email' => $request->customer_email,
+            'customer_phone' => $request->customer_phone
         ]);
 
         return response()->json(['message' => 'تم تثبيت حجزك بنجاح!', 'data' => $reservation], 201);
@@ -81,5 +86,28 @@ public function getBookedSlots(Request $request) {
         ], 500);
     }
 }
+
+// دالة تخزين التقييم
+    public function storeRating(Request $request)
+    {
+        $validated = $request->validate([
+            'booking_id' => 'required|exists:bookings,id',
+            'rating'     => 'required|integer|min:1|max:5',
+            'notes'      => 'nullable|string'
+        ]);
+
+        $rating = \App\Models\Rating::create([
+            'booking_id' => $validated['booking_id'],
+            'rating'     => $validated['rating'],
+            'notes'      => $validated['notes'],
+        ]);
+
+        return response()->json([
+            'message' => 'تم حفظ التقييم بنجاح',
+            'data'    => $rating
+        ], 201);
+    }
+
+    
 
 }

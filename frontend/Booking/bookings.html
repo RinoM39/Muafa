@@ -5,11 +5,14 @@
    
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>استكشاف الحجوزات - مُعافى</title>
+
      <link rel="manifest" href="manifest.json">
 
     <link rel="stylesheet" href="bookings.css">
 
          <link rel="stylesheet" href="../Sidebar/sidebar-mobile.css">
+
+         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -69,7 +72,7 @@
             
             <div class="venue-info-grid">
                 <span><i class="fas fa-tag"></i> السعر: <b id="unitPrice">0</b> ل.س</span>
-                <span><i class="fas fa-clock"></i> مدة الجلسة: <b id="modalDuration">0</b> دقيقة</span>
+                <span><i class="fas fa-clock"></i> مدة الجلسة: <b id="modalDuration">0</b> ساعة</span>
             </div>
 
             <hr>
@@ -102,14 +105,73 @@
     </div>
 </div>
 
+<div class="modal-dialog modal-dialog-centered">
+<div class="modal fade" id="bookingSuccessModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 12px; border: none; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);">
+            
+            <div class="modal-header border-0" style="background-color: #5A9789; color: white; border-top-left-radius: 12px; border-top-right-radius: 12px;">
+                <h5 class="modal-title" id="bookingModalLabel">✅ تم الحجز بنجاح!</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body text-end p-4" style="direction: rtl;">
+                <p class="text-muted mb-4">شكراً لاستخدامك النظام. إليك تفاصيل حجزك:</p>
+                
+                <ul class="list-group list-group-flush mb-4">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <strong>تاريخ الحجز:</strong>
+                        <span id="modal-date" style="color: #333; font-weight: 600;"></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <strong>ساعة الحجز:</strong>
+                        <span id="modal-time" style="color: #333; font-weight: 600;"></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <strong>اسم المركز الطبي:</strong>
+                        <span id="modal-center-name" style="color: #333; font-weight: 600;"></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <strong>رقم هاتف المركز:</strong>
+                        <span id="modal-center-phone" style="color: #333; font-weight: 600;"></span>
+                    </li>
+                </ul>
+
+                <hr style="border-top: 1px solid #eee;">
+                
+                <h6 class="mb-3" style="color: #5A9789;">قيم خدمات المركز الطبي:</h6>
+                <div class="rating-stars mb-3 text-center" style="font-size: 1.8rem; cursor: pointer;">
+                    <span class="star" data-value="1" style="color: #ccc;" onclick="rate(1)">★</span>
+                    <span class="star" data-value="2" style="color: #ccc;" onclick="rate(2)">★</span>
+                    <span class="star" data-value="3" style="color: #ccc;" onclick="rate(3)">★</span>
+                    <span class="star" data-value="4" style="color: #ccc;" onclick="rate(4)">★</span>
+                    <span class="star" data-value="5" style="color: #ccc;" onclick="rate(5)">★</span>
+                </div>
+                
+                <div class="mb-3">
+                    <textarea class="form-control" id="rating-notes" rows="3" placeholder="اكتب رأيك أو ملاحظاتك (اختياري)" style="resize: none; border: 1px solid #ddd; border-radius: 8px;"></textarea>
+                </div>
+            </div>
+            
+            <div class="modal-footer border-0 justify-content-between p-4">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="border-radius: 8px; padding: 8px 24px;">خروج</button>
+                <button type="button" class="btn text-white" style="background-color: #5A9789; border-radius: 8px; padding: 8px 24px;" onclick="submitRating()">تقييم وإرسال</button>
+            </div>
+            
+        </div>
+    </div>
+</div>
+</div>
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
 
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../Sidebar/sidebar.js"></script>
  <script src="bookings.js"></script>
 <script src="../pwa-handler/pwa-handler.js"></script>
-        <script src="../Sidebar/sidebar-mobile.js"></script>
-
+<script src="../Sidebar/sidebar-mobile.js"></script>
+<script src="../toast.js"></script>
        
 
 

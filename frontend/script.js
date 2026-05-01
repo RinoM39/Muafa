@@ -1,3 +1,14 @@
+// حماية صفحة الإدارة (الأدمن فقط)
+(function() {
+    const token = localStorage.getItem('auth_token');
+    const role = localStorage.getItem('user_role');
+
+    if (!token || role !== '2') {
+        showToast("هذه المنطقة مخصصة للمدير العام فقط.", "error");
+        window.location.href = "Booking/bookings.html"; // إعادة التوجيه لصفحة العرض
+    }
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
     const langToggle = document.getElementById('langToggle');
 
@@ -44,5 +55,7 @@ function goToAuth() {
     // يمكنك تغيير اسم الملف إلى اسم صفحة تسجيل الدخول الخاصة بك
     window.location.href = "auth.html"; 
 }
+
+
 
 });

@@ -1,4 +1,17 @@
+// حماية صفحة إنشاء الحجوزات (مركز طبي + أدمن)
+(function() {
+    const token = localStorage.getItem('auth_token');
+    const role = localStorage.getItem('user_role');
+
+    if (!token || (role !== '1' && role !== '2')) {
+        showToast("عذراً، يجب أن تملك حساب مركز طبي لإضافة عروض جديدة.");
+        window.location.href = "../Booking/bookings.html";
+    }
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
+
+    
     
     const API_URL = 'http://127.0.0.1:8000/api/bookings';
     const createBookingForm = document.getElementById('createBookingForm');
@@ -61,12 +74,14 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log("البيانات المرسلة كاملة:", payload);
 
             try {
+                const token = localStorage.getItem('auth_token');
                 saveBtn.disabled = true;
                 saveBtn.textContent = isAr ? "...جاري الحفظ" : "...Saving";
 
                 const response = await fetch(API_URL, {
                     method: 'POST',
                     headers: {
+                      'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json',
                         'Accept': 'application/json'
                     },
@@ -74,21 +89,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 if (response.ok) {
-                    alert(isAr ? "✅ تم إنشاء الحجز بنجاح!" : "✅ Booking Created Successfully!");
+                    showToast(isAr ? "✅ تم إنشاء الحجز بنجاح!" : "✅ Booking Created Successfully!");
                     window.location.href = "../Booking/bookings.html"; 
                 } else {
                     const errorData = await response.json();
                     console.error("خطأ من السيرفر:", errorData);
-                    alert(isAr ? "❌ فشل الحفظ: " + (errorData.message || "خطأ غير معروف") : "❌ Save failed");
+                    showToast(isAr ? "❌ فشل الحفظ: " + (errorData.message || "خطأ غير معروف") : "❌ Save failed", "error");
                 }
 
             } catch (error) {
                 console.error("خطأ في الاتصال:", error);
-                alert(isAr ? "❌ لا يمكن الاتصال بالسيرفر (تأكد من تشغيل php artisan serve)" : "❌ Connection Error");
+                showToast(isAr ? "❌ لا يمكن الاتصال بالسيرفر (تأكد من تشغيل php artisan serve)" : "❌ Connection Error", "error");
             } finally {
                 saveBtn.disabled = false;
                 saveBtn.textContent = isAr ? "إتمام إنشاء الحجز" : "Confirm Booking";
             }
         });
     }
+
+
 });
+
