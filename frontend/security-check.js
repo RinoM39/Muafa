@@ -3,32 +3,37 @@
     const token = localStorage.getItem('auth_token');
     const role = localStorage.getItem('user_role');
     const path = window.location.pathname;
-
-    // 1. القائمة السوداء: الصفحات التي تتطلب تسجيل دخول حصراً
-    const protectedPages = ['index.html', 'create-booking.html'];
-    
-    // الحصول على اسم الصفحة الحالية من الرابط
     const currentPage = path.split("/").pop();
 
-    // 2. التحقق من وجود التوكن للصفحات المحمية
+    // دالة التوجيه الذكية
+    const redirectWithToast = (message, type, targetUrl) => {
+        // نضع الرسالة والنوع في الـ sessionStorage لتقرأها الصفحة القادمة
+        sessionStorage.setItem('pending_toast_msg', message);
+        sessionStorage.setItem('pending_toast_type', type);
+        
+        // التوجيه فوراً بدون انتظار موافقة المستخدم
+        window.location.href = targetUrl;
+    };
+
+    const protectedPages = ['index.html', 'create-booking.html'];
+
+    // 1. فحص تسجيل الدخول
     if (protectedPages.includes(currentPage) && !token) {
-        alert("يجب تسجيل الدخول للوصول لهذه الصفحة");
-        window.location.href = "Auth/auth.html";
+        redirectWithToast("يجب تسجيل الدخول للوصول لهذه الصفحة", "warning", "Auth/auth.html");
         return;
     }
 
-    // 3. التحقق من الصلاحيات (Role-Based Access Control)
+    // 2. فحص الصلاحيات (Roles)
     
-    // صفحة المدير (index.html) مسموح فقط للرول 2
+    // صفحة الإدارة (index.html) - مسموح فقط للرول 2
     if (currentPage === 'index.html' && role !== '2') {
-        alert("صلاحية مدير النظام مطلوبة");
-        window.location.href = "Booking/bookings.html";
+        redirectWithToast("ليست من صلاحياتك", "error", "Booking/bookings.html");
+        return;
     }
 
-    // صفحة إنشاء الحجز مسموح للمركز الطبي (1) والأدمن (2)
+    // صفحة إنشاء العروض - مسموح للرول 1 و 2
     if (currentPage === 'create-booking.html' && (role !== '1' && role !== '2')) {
-        alert("يجب أن تكون صاحب مركز طبي لإضافة عروض");
-        window.location.href = "../Booking/bookings.html";
+        redirectWithToast("ليست من صلاحياتك", "error", "../Booking/bookings.html");
+        return;
     }
-
 })();
