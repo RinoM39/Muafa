@@ -14,7 +14,10 @@ class Booking extends Model
         'customer_name', 
         'venue_name', 
         'phone', 
-        'people_count', 
+        'opening_time',
+        'closing_time',
+        'image',
+        'user_id', 
         'price', 
         'duration_minutes', 
         'description',
@@ -31,6 +34,12 @@ protected $casts = [
     {
         return $this->hasMany(ReservedSlot::class);
     }
+
+    // دالة للحصول على رابط الصورة الكامل
+public function getImageUrlAttribute()
+{
+    return $this->image ? asset('storage/' . $this->image) : null;
+}
 
     // علاقة الحجز مع التقييمات
     public function ratings()

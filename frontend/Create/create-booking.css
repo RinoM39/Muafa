@@ -244,3 +244,50 @@ body {
     }
 }
 
+/* تنسيق حقل رفع الصور العصري */
+.image-upload-wrapper {
+    width: 100%;
+}
+
+.image-drop-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    border: 2px dashed var(--border);
+    border-radius: 20px;
+    background: #fdfdfd;
+    cursor: pointer;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.image-drop-area:hover {
+    border-color: var(--primary);
+    background: rgba(90, 151, 137, 0.02);
+}
+
+.image-drop-area i {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+.image-drop-area p {
+    font-size: 0.9rem;
+    color: #888;
+    margin: 0;
+}
+
+/* تعديل حقول الوقت لتتناسب مع التصميم */
+input[type="time"].modern-input {
+    padding-right: 45px;
+    text-align: right;
+}
+
+/* لإظهار أيقونة الساعة بشكل أوضح في المتصفحات */
+input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(58%) sepia(13%) saturate(750%) hue-rotate(120deg) brightness(90%) contrast(85%);
+    cursor: pointer;
+}

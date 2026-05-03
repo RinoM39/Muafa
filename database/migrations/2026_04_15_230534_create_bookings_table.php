@@ -15,8 +15,10 @@ return new class extends Migration
         $table->id();
         $table->string('customer_name')->nullable(); // الاسم
         $table->string('venue_name')->nullable();    // المكان
-        $table->string('phone')->nullable();         // الهاتف
-        $table->integer('people_count')->default(1); 
+        $table->string('phone')->nullable();  
+        $table->time('opening_time');
+            $table->time('closing_time');
+            $table->string('image')->nullable();       // الهاتف
         $table->decimal('price', 15, 2)->default(0); // السعر الموحد
         $table->integer('duration_minutes')->default(1);    
         $table->text('description')->nullable();

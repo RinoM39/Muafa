@@ -53,6 +53,18 @@
 
 
 
+<div class="form-group full-width" style="margin-top: px;">
+    <label data-en="Venue Image" data-ar="صورة المكان">صورة المكان</label>
+    <div class="image-upload-wrapper">
+        <input type="file" id="image" accept="image/*" hidden>
+        <label for="image" class="image-drop-area">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <p id="fileNameDisplay">اسحب الصورة هنا أو اضغط للاختيار</p>
+            <img id="imagePreview" src="#" alt="Preview" style="display:none; max-width: 100px; border-radius: 10px; margin-top: 10px;">
+        </label>
+    </div>
+</div>
+
 
                         <div class="input-grid">
                             <div class="form-group">
@@ -79,13 +91,15 @@
     </div>
 </div>
 
+
                             <div class="form-group">
-                                <label data-en="People Count" data-ar="عدد الأشخاص">عدد الأشخاص</label>
-                                <div class="modern-input-wrapper">
-                                    <i class="fas fa-users"></i>
-                                    <input type="number" id="people_count" class="modern-input int-only" value="1">
-                                </div>
-                            </div>
+    <label data-en="Opening Time" data-ar="وقت الافتتاح">وقت الافتتاح</label>
+    <div class="modern-input-wrapper">
+        <i class="fas fa-door-open"></i>
+        <input type="time" id="opening_time" class="modern-input">
+    </div>
+</div>
+
 
 
                             <div class="form-group">
@@ -96,7 +110,17 @@
                                 </div>
                             </div>
 
-                           <div class="form-group">
+                            
+<div class="form-group">
+    <label data-en="Closing Time" data-ar="وقت الإغلاق">وقت الإغلاق</label>
+    <div class="modern-input-wrapper">
+        <i class="fas fa-door-closed"></i>
+        <input type="time" id="closing_time" class="modern-input">
+    </div>
+</div>
+
+
+     <div class="form-group" >
     <label>مدة الحجز (بساعات)</label>
     <div class="modern-input-wrapper">
         <i class="fas fa-clock"></i>
@@ -104,9 +128,11 @@
     </div>
 </div>
 
-                        <div class="form-group full-width" style="margin-top: 15px;">
+
+
+                        <div class="form-group">
                             <label data-en="Description" data-ar="الوصف">الوصف</label>
-                            <textarea class="modern-input fixed-textarea" id="description" rows="4" placeholder="اكتب تفاصيل إضافية..."></textarea>
+                            <textarea class="modern-input fixed-textarea" id="description" placeholder="اكتب تفاصيل إضافية..."></textarea>
                         </div>
                     </section>
                 </div>

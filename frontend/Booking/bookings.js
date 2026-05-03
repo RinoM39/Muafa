@@ -134,37 +134,68 @@ async function loadBookings() {
 
 
 window.prepareAndOpenModal = function(booking) {
-    // تخزين الـ ID الحقيقي من قاعدة البيانات (id)
+    // تخزين الـ ID الحقيقي من قاعدة البيانات
     currentSelectedBookingId = booking.id; 
-selectedBookingForModal = booking;
+    selectedBookingForModal = booking;
+
     // توحيد الحقول لتجنب undefined
     const data = {
         id: booking.id,
-        title: booking.venue_name,
+        title: booking.venue_name || booking.title,
         desc: booking.description || "لا يوجد وصف حالياً",
         price: booking.price,
         duration: booking.duration_minutes || 60,
-        // معالجة أيام العمل سواء كانت نص JSON أو مصفوفة
+        image: booking.image, // جلب اسم الصورة من بيانات الحجز
         working_days: typeof booking.working_days === 'string' ? JSON.parse(booking.working_days) : booking.working_days
     };
 
-    // تعبئة الـ HTML بالبيانات
-    document.getElementById('modalTitle').innerText = data.title;
-    document.getElementById('modalDescription').innerText = data.desc;
-    document.getElementById('unitPrice').innerText = data.price;
-    document.getElementById('modalDuration').innerText = data.duration;
+    // تعبئة البيانات النصية
+    const titleEl = document.getElementById('modalTitle');
+    if (titleEl) titleEl.innerText = data.title;
+
+    const descEl = document.getElementById('modalDescription');
+    if (descEl) descEl.innerText = data.desc;
+
+    const priceEl = document.getElementById('unitPrice');
+    if (priceEl) priceEl.innerText = data.price;
+
+    const durationEl = document.getElementById('modalDuration');
+    if (durationEl) durationEl.innerText = data.duration;
+    
+    // ⬇️ التعديل الجديد: تحديث صورة المودال
+    const modalImage = document.getElementById('modalImage');
+    if (modalImage) {
+        if (data.image) {
+            modalImage.src = 'http://127.0.0.1:8000/storage/' + data.image;
+        } else {
+            modalImage.src = '../logo.jpg';
+        }
+        
+        // صورة احتياطية في حال لم يتم العثور على الصورة
+        modalImage.onerror = function() {
+            this.onerror = null;
+            this.src = '../logo.jpg';
+        };
+    }
     
     // تصفير التاريخ والوقت عند فتح مودال جديد
-    document.getElementById('selectedBookingDate').value = "";
-    document.getElementById('selected_time').innerHTML = '<option value="">اختر اليوم أولاً</option>';
+    const dateEl = document.getElementById('selectedBookingDate');
+    if (dateEl) dateEl.value = "";
+    
+    const timeEl = document.getElementById('selected_time');
+    if (timeEl) timeEl.innerHTML = '<option value="">اختر اليوم أولاً</option>';
 
     // بناء التقويم المتاح لهذا المكان
-    generateCalendar(data);
+    if (typeof generateCalendar === 'function') {
+        generateCalendar(data);
+    }
 
     // إظهار المودال
     const modal = document.getElementById('bookingModal');
-    modal.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
+    if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
 };
 
 function generateCalendar(data) {
@@ -399,8 +430,10 @@ function renderBookings(bookingsList) {
       const cardHTML = `
                     <div class="booking-card">
                         <div class="card-image">
-                            <img src="../logo.jpg" alt="صورة">
-                            <span class="category-badge">مدة الجلسة: ${booking.duration_minutes || 60} H</span>
+                          <img src="${booking.image ? 'http://127.0.0.1:8000/storage/' + booking.image : '../logo.jpg'}" 
+                     alt="صورة المكان" 
+                     onerror="this.onerror=null; this.src='../logo.jpg';">
+                                                 <span class="category-badge">مدة الجلسة: ${booking.duration_minutes || 60} H</span>
                         </div>
                         <div class="card-details">
                             <h3 class="customer-name-text">${booking.venue_name || 'اسم المكان'}</h3>
