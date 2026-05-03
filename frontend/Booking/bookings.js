@@ -129,10 +129,6 @@ async function loadBookings() {
     }
 }
 
-
-
-
-
 window.prepareAndOpenModal = function(booking) {
     // تخزين الـ ID الحقيقي من قاعدة البيانات
     currentSelectedBookingId = booking.id; 
@@ -246,8 +242,6 @@ async function loadAvailableTimes(venueId, selectedDate) {
     const timeSelect = document.getElementById('selected_time');
     if (!timeSelect) return;
 
-    console.log(`🔎 جاري الفحص للمكان: ${venueId} بتاريخ: ${selectedDate}`);
-
     if (!venueId || venueId === "undefined") {
         console.error("❌ فشل: الـ ID غير معرف");
         return;
@@ -259,18 +253,18 @@ async function loadAvailableTimes(venueId, selectedDate) {
         const response = await fetch(`http://127.0.0.1:8000/api/get-booked-slots?venue_id=${venueId}&date=${selectedDate}`);
         
         if (!response.ok) {
-            const errorHtml = await response.text();
-            console.error("❌ خطأ من السيرفر (500): جاري عرض تفاصيل الخطأ...");
-            // هذا السطر سيفتح صفحة الخطأ في الكونسول لتعرف السطر المعطل في لارافيل
-            console.log(errorHtml.substring(0, 500)); 
             throw new Error(`Server error: ${response.status}`);
         }
 
         const bookedSlots = await response.json();
         const duration = parseFloat(document.getElementById('modalDuration').innerText) || 60;
         
+        // ⬇️ جلب أوقات العمل الديناميكية
+        const startTime = selectedBookingForModal?.opening_time || "08:00";
+        const endTime = selectedBookingForModal?.closing_time || "22:00";
+        
         // توليد الخيارات
-        const slots = generateTimeSlots(duration , bookedSlots);
+        const slots = generateTimeSlots(duration, bookedSlots, startTime, endTime);
         timeSelect.innerHTML = '<option value="">اختر الوقت المناسب</option>';
         
         slots.forEach(slot => {
@@ -281,39 +275,35 @@ async function loadAvailableTimes(venueId, selectedDate) {
         });
 
     } catch (error) {
-        console.error("❌ Network/Logic Error:", error);
+        console.error("❌ Error:", error);
         timeSelect.innerHTML = '<option value="">تعذر جلب الأوقات</option>';
     }
-
-    
 }
 
-function generateTimeSlots(durationInHours, bookedSlots = []) {
+function generateTimeSlots(durationInHours, bookedSlots = [], startTime = "08:00", endTime = "22:00") {
     const slots = [];
     
-    // 1. تحويل مدة الحجز من ساعات إلى دقائق لضمان دقة الحساب
+    // 1. تحويل مدة الحجز من ساعات إلى دقائق
     const durationInMinutes = durationInHours * 60;
 
-    // 2. تحويل بداية ونهاية الدوام لدقائق كقيمة مطلقة
-    // 8 صباحاً = 8 * 60 = 480 دقيقة
-    // 10 مساءً = 22 * 60 = 1320 دقيقة
-    let currentTotalMinutes = 8 * 60; 
-    const endTotalMinutes = 22 * 60;
+    // 2. تحويل أوقات البدء والانتهاء إلى دقائق
+    const startParts = startTime.split(':');
+    let currentTotalMinutes = parseInt(startParts[0], 10) * 60 + parseInt(startParts[1], 10);
+    
+    const endParts = endTime.split(':');
+    const endTotalMinutes = parseInt(endParts[0], 10) * 60 + parseInt(endParts[1], 10);
 
     while (currentTotalMinutes + durationInMinutes <= endTotalMinutes) {
-        // 3. استخراج الساعات والدقائق الحقيقية من المجموع الكلي
         const hours = Math.floor(currentTotalMinutes / 60);
         const minutes = currentTotalMinutes % 60;
 
-        // 4. تنسيق القيمة لإرسالها للباك أند (HH:mm) مثل "08:00"
         const timeValue = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
         
-        // 5. تنسيق القيمة للعرض الجمالي للمستخدم (12-hour format)
         const ampm = hours >= 12 ? 'PM' : 'AM';
         const displayHours = hours > 12 ? hours - 12 : (hours === 0 ? 12 : hours);
         const displayTime = `${displayHours}:${minutes.toString().padStart(2, '0')} ${ampm}`;
 
-        // 6. التحقق من الحجوزات المستلمة من الباك أند
+        // 3. التحقق من الحجوزات المستلمة
         if (!bookedSlots.includes(timeValue)) {
             slots.push({
                 value: timeValue,
@@ -321,7 +311,6 @@ function generateTimeSlots(durationInHours, bookedSlots = []) {
             });
         }
 
-        // 7. إضافة المدة (بالدقائق) للانتقال للموعد التالي
         currentTotalMinutes += durationInMinutes;
     }
     return slots;
